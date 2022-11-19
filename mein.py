@@ -45,6 +45,7 @@ def show(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback(call):
+    markup = types.InlineKeyboardMarkup(row_width=2)
     global poll_items
     if call.message:
         if call.data == 'delete':
@@ -57,7 +58,25 @@ def callback(call):
                 for i in range(1, len(id_items)):
                     name = poll_items[j]
                     score = poll_items[j + 1]
-                    bot.send_message(id_items[i], f'{name} - {score}', parse_mode='html')
+                    but_0 = types.InlineKeyboardButton("0", callback_data='0')
+                    but_1 = types.InlineKeyboardButton("1", callback_data='1')
+                    but_2 = types.InlineKeyboardButton("2", callback_data='2')
+                    but_3 = types.InlineKeyboardButton("3", callback_data='3')
+                    markup.add(but_0, but_1, but_2, but_3 )
+                    bot.send_message(id_items[i], f'{name} - {score}', parse_mode='html', reply_markup=markup)
+
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback(call):
+    if call.message:
+        if call.data == '0':
+            pass
+        elif call.data == '1':
+            pass
+        elif call.data == '2':
+            pass
+        elif call.data == '3':
+            pass
 
 
 @bot.message_handler()  # Функція, яка приймає назви та значення для голосування(має бути останнью)
