@@ -35,18 +35,21 @@ def vote(message):
     markup.add(button_1, button_2)
     bot.send_message(message.chat.id, f"Pls send first message", parse_mode='html', reply_markup=markup)
 
+
 @bot.message_handler(commands=['top'])
 def top(message):
     array = poll_items
-    for j in range(1, 3):
+    j = 0
+    while j < 3:
         i = 0
         a = 0
-        while i <= len(array):
-             if int(array[i][1]) >= a:
-                 a = int(array[i][1])
-        bot.send_message(message.chat.id, f"{j}) {array[a][0]} — {array[a][1]}", parse_mode='html')
+        while i < len(array):
+            if array[i][1] >= a:
+                a = int(array[i][1])
+                i = i + 1
+        bot.send_message(message.chat.id, f"{j + 1}) {array[a][0]} — {array[a][1]}", parse_mode='html')
         array.pop(a)
-
+        j = j + 1
 
 
 @bot.message_handler(commands=['show'])
